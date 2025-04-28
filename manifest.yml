@@ -12,6 +12,7 @@ applications:
       JBP_CONFIG_SAP_MACHINE_JDK : "{ version: 21.+ }"
     services:
       - javauaa
+      - helloworld-logging
 
   - name: web
     random-route: true

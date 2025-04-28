@@ -47,6 +47,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.sap.hcp.cf.logging</groupId>
+            <artifactId>cf-java-logging-support-logback</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+
+
         <!-- Spring and XSUAA Security -->
         <dependency>
             <groupId>com.sap.cloud.security.xsuaa</groupId>
