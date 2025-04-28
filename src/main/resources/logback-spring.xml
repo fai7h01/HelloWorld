@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT-JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="com.sap.hcp.cf.logback.encoder.JsonEncoder"/>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT-JSON"/>
+    </root>
+
+    <logger name="com.sap.cloud.sdk" level="INFO"/>
+    <logger name="com.example.javatutorial" level="DEBUG"/>
+
+</configuration>
