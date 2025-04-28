@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
 public class HelloWorldApplication {
 
@@ -15,5 +14,4 @@ public class HelloWorldApplication {
         SpringApplication.run(HelloWorldApplication.class, args);
         log.info("Hello World!");
     }
-
 }
