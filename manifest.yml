@@ -13,6 +13,7 @@ applications:
     services:
       - javauaa
       - helloworld-logging
+      - my-destination
 
   - name: web
     random-route: true

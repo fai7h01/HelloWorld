@@ -48,7 +48,6 @@
             <version>${sap-cf-version}</version>
         </dependency>
 
-
         <!-- Spring and XSUAA Security -->
         <dependency>
             <groupId>com.sap.cloud.security.xsuaa</groupId>
@@ -62,8 +61,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.sdk.cloudplatform</groupId>
+            <artifactId>cloudplatform-connectivity-scp-cf</artifactId>
+            <version>5.18.0</version>
+        </dependency>
     </dependencies>
-
 
     <build>
         <plugins>

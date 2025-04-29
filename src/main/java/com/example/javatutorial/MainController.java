@@ -9,9 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping(path = "")
 public class MainController {
+
+    private final DestinationService destinationService;
+
+    public MainController(DestinationService destinationService) {
+        this.destinationService = destinationService;
+    }
 
     @GetMapping(path = "")
     public ResponseEntity<String> readAll(@AuthenticationPrincipal Token token) {
@@ -20,5 +28,11 @@ public class MainController {
         }
 
         return new ResponseEntity<>("Hello World!", HttpStatus.OK);
+    }
+
+    @GetMapping("/hello-world-two")
+    public ResponseEntity<String> helloWorldTwo() {
+        var response = destinationService.callHelloWorldService();
+        return ResponseEntity.ok(response);
     }
 }
