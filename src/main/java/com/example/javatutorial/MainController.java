@@ -10,15 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "")
+@RequestMapping("/api")
 public class MainController {
 
-    @GetMapping(path = "")
-    public ResponseEntity<String> readAll(@AuthenticationPrincipal Token token) {
+    private final DestinationService destinationService;
+
+    public MainController(DestinationService destinationService) {
+        this.destinationService = destinationService;
+    }
+
+    @GetMapping("/greetings")
+    public ResponseEntity<String> greetings(@AuthenticationPrincipal Token token) {
         if (!token.getAuthorities().contains(new SimpleGrantedAuthority("Display"))) {
             throw new NotAuthorizedException("This operation requires \"Display\" scope");
         }
 
         return new ResponseEntity<>("Hello World!", HttpStatus.OK);
+    }
+
+    @GetMapping("/destination/greetings")
+    public ResponseEntity<String> greetingsFromDestination() {
+        var response = destinationService.callHelloWorldService();
+        return ResponseEntity.ok(response);
     }
 }
