@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 public class DestinationService {
 
     private static final String DESTINATION_NAME = "helloworldtwo";
-    private static final String REL_URL = "";
+    private static final String REL_URL = "/api/greetings";
 
     public String callHelloWorldService() {
         try {
