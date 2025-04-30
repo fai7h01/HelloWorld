@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-
 @RestController
-@RequestMapping(path = "")
+@RequestMapping("/api")
 public class MainController {
 
     private final DestinationService destinationService;
@@ -21,8 +19,8 @@ public class MainController {
         this.destinationService = destinationService;
     }
 
-    @GetMapping(path = "")
-    public ResponseEntity<String> readAll(@AuthenticationPrincipal Token token) {
+    @GetMapping("/greetings")
+    public ResponseEntity<String> greetings(@AuthenticationPrincipal Token token) {
         if (!token.getAuthorities().contains(new SimpleGrantedAuthority("Display"))) {
             throw new NotAuthorizedException("This operation requires \"Display\" scope");
         }
@@ -30,8 +28,8 @@ public class MainController {
         return new ResponseEntity<>("Hello World!", HttpStatus.OK);
     }
 
-    @GetMapping("/hello-world-two")
-    public ResponseEntity<String> helloWorldTwo() {
+    @GetMapping("/destination/greetings")
+    public ResponseEntity<String> greetingsFromDestination() {
         var response = destinationService.callHelloWorldService();
         return ResponseEntity.ok(response);
     }
