@@ -24,7 +24,8 @@ public class NorthwindController {
 
     @GetMapping(value = "/products/{productId}", produces = "application/json")
     public ResponseEntity<?> getProductById(@PathVariable Integer productId) {
-        var product = northwindService.getProductById(productId);
+        var product = northwindService.getProductById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
         return ResponseEntity.ok(product);
     }
 }
