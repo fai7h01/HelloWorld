@@ -30,6 +30,7 @@
         <java.version>21</java.version>
         <sap-cf-version>3.5.0</sap-cf-version>
         <sap-cloud-sdk-version>5.18.0</sap-cloud-sdk-version>
+        <odata-version>5.0.0</odata-version>
     </properties>
     <dependencies>
         <!-- Spring Boot starter packages -->
@@ -64,8 +65,28 @@
         </dependency>
         <dependency>
             <groupId>com.sap.cloud.sdk.cloudplatform</groupId>
+            <artifactId>cloudplatform-connectivity</artifactId>
+            <version>${sap-cloud-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.sdk.cloudplatform</groupId>
             <artifactId>cloudplatform-connectivity-scp-cf</artifactId>
             <version>${sap-cloud-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.sdk.datamodel</groupId>
+            <artifactId>odata-v4-core</artifactId>
+            <version>${sap-cloud-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.sdk.datamodel</groupId>
+            <artifactId>odata-v4-generator</artifactId>
+            <version>${sap-cloud-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -74,6 +95,28 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.sap.cloud.sdk.datamodel</groupId>
+                <artifactId>odata-v4-generator-maven-plugin</artifactId>
+                <version>${sap-cloud-sdk-version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-northwind-client</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputDirectory>${project.basedir}/src/main/resources/edmx/</inputDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/northwind</outputDirectory>
+                            <packageName>com.mycompany.northwind</packageName>
+                            <defaultBasePath>/V4/Northwind/Northwind.svc/</defaultBasePath>
+                            <compileScope>COMPILE</compileScope>
+                            <deleteOutputDirectory>true</deleteOutputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
