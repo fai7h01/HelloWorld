@@ -88,6 +88,34 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.olingo</groupId>
+            <artifactId>odata-commons-api</artifactId>
+            <version>${odata-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.olingo</groupId>
+            <artifactId>odata-commons-core</artifactId>
+            <version>${odata-version}</version>
+        </dependency>
+
+        <!-- OData V4 client API & implementation -->
+        <dependency>
+            <groupId>org.apache.olingo</groupId>
+            <artifactId>odata-client-api</artifactId>
+            <version>${odata-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.olingo</groupId>
+            <artifactId>odata-client-core</artifactId>
+            <version>${odata-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.olingo</groupId>
+            <artifactId>odata-client-proxy</artifactId>
+            <version>${odata-version}</version>
+        </dependency>
     </dependencies>
 
     <build>

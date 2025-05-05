@@ -1,4 +1,4 @@
-package com.example.javatutorial;
+package com.example.javatutorial.service;
 
 import com.sap.cloud.sdk.cloudplatform.connectivity.DestinationAccessor;
 import com.sap.cloud.sdk.cloudplatform.connectivity.HttpClientAccessor;

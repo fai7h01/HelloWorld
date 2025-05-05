@@ -1,5 +1,7 @@
-package com.example.javatutorial;
+package com.example.javatutorial.controller;
 
+import com.example.javatutorial.exception.NotAuthorizedException;
+import com.example.javatutorial.service.DestinationService;
 import com.sap.cloud.security.xsuaa.token.Token;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
