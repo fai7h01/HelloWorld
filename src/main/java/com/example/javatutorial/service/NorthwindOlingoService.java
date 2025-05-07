@@ -1,24 +1,24 @@
 package com.example.javatutorial.service;
 
-import com.example.javatutorial.enums.NorthwindConstants;
+import com.example.javatutorial.constants.NorthwindConstants;
 import com.mycompany.northwind.namespaces.northwind.Product;
 import com.sap.cloud.sdk.cloudplatform.connectivity.Destination;
 import com.sap.cloud.sdk.cloudplatform.connectivity.DestinationAccessor;
 import org.apache.olingo.client.api.ODataClient;
 import org.apache.olingo.client.api.communication.response.ODataRetrieveResponse;
 import org.apache.olingo.client.api.domain.ClientEntity;
+import org.apache.olingo.client.api.domain.ClientEntitySet;
 import org.apache.olingo.client.core.ODataClientFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.example.javatutorial.enums.NorthwindConstants.DESTINATION_NAME;
+import static com.example.javatutorial.constants.NorthwindConstants.DESTINATION_NAME;
 
 @Service
 public class NorthwindOlingoService {
@@ -33,8 +33,20 @@ public class NorthwindOlingoService {
                 .getUri()
                 .toString()
                 .replaceAll("/$", "");
-        this.serviceRoot = baseUrl + NorthwindConstants.SERVICE_PATH.getValue()
+        this.serviceRoot = baseUrl + NorthwindConstants.SERVICE_PATH
                 .replaceAll("/$", "");
+    }
+
+    public ClientEntitySet fetchEntitySet(String entitySetName, MultiValueMap<String, Object> rawParams) {
+        var uriBuilder = client.newURIBuilder(serviceRoot)
+                .appendEntitySetSegment(entitySetName);
+        rawParams.forEach((k, v) -> uriBuilder.addCustomQueryOption(k, v.toString()));
+
+        var req = client.getRetrieveRequestFactory().getEntitySetRequest(uriBuilder.build());
+        var res = req.execute();
+        checkStatus(res);
+
+        return res.getBody();
     }
 
     public List<Product> getAllProducts(Map<String, String> params) {
@@ -44,7 +56,7 @@ public class NorthwindOlingoService {
         params.forEach(uri::addCustomQueryOption);
 
         var req = client.getRetrieveRequestFactory()
-                        .getEntitySetRequest(uri.build());
+                .getEntitySetRequest(uri.build());
 
         var res = req.execute();
         checkStatus(res);
@@ -63,7 +75,7 @@ public class NorthwindOlingoService {
                 .build();
 
         var req = client.getRetrieveRequestFactory()
-                        .getEntityRequest(uri);
+                .getEntityRequest(uri);
 
         var res = req.execute();
         checkStatus(res);
@@ -84,7 +96,6 @@ public class NorthwindOlingoService {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private <T> T getPrimitive(ClientEntity e, String propName, Class<T> type) {
         var val = e.getProperty(propName).getValue();
         var raw = val.asPrimitive().toValue();
@@ -107,6 +118,6 @@ public class NorthwindOlingoService {
     }
 
     private Destination getDestination() {
-        return DestinationAccessor.getDestination(DESTINATION_NAME.getValue());
+        return DestinationAccessor.getDestination(DESTINATION_NAME);
     }
 }

@@ -27,14 +27,14 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
-    @ExceptionHandler(NotAuthorizedException.class)
-    public ResponseEntity<ExceptionWrapper> handleNotAuthorizedException(NotAuthorizedException exception) {
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<ExceptionWrapper> handleBaseException(BaseException exception) {
         log.error(exception.getMessage());
-        return status(HttpStatus.FORBIDDEN)
+        return status(exception.getStatus())
                 .body(ExceptionWrapper.builder()
                         .success(false)
                         .message(exception.getMessage())
-                        .httpStatus(HttpStatus.FORBIDDEN)
+                        .httpStatus(exception.getStatus())
                         .timestamp(LocalDateTime.now())
                         .build());
     }

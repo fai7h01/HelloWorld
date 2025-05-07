@@ -5,6 +5,8 @@ import com.example.javatutorial.service.NorthwindOlingoService;
 import com.example.javatutorial.service.NorthwindService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -31,8 +33,7 @@ public class NorthwindController {
 
     @GetMapping(value = "/products/{productId}", produces = "application/json")
     public ResponseEntity<ResponseWrapper> getProductById(@PathVariable Integer productId) {
-        var product = northwindService.getProductById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+        var product = northwindService.getProductById(productId);
         return buildSuccessResponse(product);
     }
 
@@ -40,6 +41,13 @@ public class NorthwindController {
     public ResponseEntity<ResponseWrapper> getOlingoProducts(
             @RequestParam Map<String, String> requestParams) {
         return buildSuccessResponse(northwindOlingoService.getAllProducts(requestParams));
+    }
+
+    @GetMapping(value = "/{entity}", produces = "application/json")
+    public ResponseEntity<ResponseWrapper> getEntitySet(@PathVariable("entity") String entity,
+                                                        @RequestParam(required = false) MultiValueMap<String, Object> requestParams) {
+        var params = (requestParams != null) ? requestParams : new LinkedMultiValueMap<String, Object>();
+        return buildSuccessResponse(northwindOlingoService.fetchEntitySet(entity, params));
     }
 
     private ResponseEntity<ResponseWrapper> buildSuccessResponse(Object data) {

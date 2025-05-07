@@ -1,5 +1,6 @@
 package com.example.javatutorial.controller;
 
+import com.example.javatutorial.exception.BaseException;
 import com.example.javatutorial.exception.NotAuthorizedException;
 import com.example.javatutorial.service.DestinationService;
 import com.sap.cloud.security.xsuaa.token.Token;
@@ -24,7 +25,7 @@ public class MainController {
     @GetMapping("/greetings")
     public ResponseEntity<String> greetings(@AuthenticationPrincipal Token token) {
         if (!token.getAuthorities().contains(new SimpleGrantedAuthority("Display"))) {
-            throw new NotAuthorizedException("This operation requires \"Display\" scope");
+            throw new BaseException("Not authorized", HttpStatus.UNAUTHORIZED);
         }
 
         return new ResponseEntity<>("Hello World!", HttpStatus.OK);
