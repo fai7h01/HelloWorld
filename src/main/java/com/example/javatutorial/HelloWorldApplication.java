@@ -1,9 +1,11 @@
 package com.example.javatutorial;
 
+import com.mycompany.northwind.services.DefaultNorthwindService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class HelloWorldApplication {

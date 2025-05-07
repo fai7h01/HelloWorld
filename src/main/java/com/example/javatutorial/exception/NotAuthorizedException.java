@@ -1,9 +1,8 @@
-package com.example.javatutorial;
+package com.example.javatutorial.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@SuppressWarnings("serial")
 @ResponseStatus(HttpStatus.FORBIDDEN)
 public class NotAuthorizedException extends RuntimeException{
 
