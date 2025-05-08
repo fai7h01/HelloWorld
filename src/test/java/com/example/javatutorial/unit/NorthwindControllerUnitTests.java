@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,11 +34,11 @@ public class NorthwindControllerUnitTests {
     @BeforeEach
     void setUp() {
         product1 = Product.builder()
-        .productID(1)
-        .categoryID(1)
-        .productName("Apple")
-        .unitPrice(BigDecimal.valueOf(5d))
-        .build();
+                .productID(1)
+                .categoryID(1)
+                .productName("Apple")
+                .unitPrice(BigDecimal.valueOf(5d))
+                .build();
         product2 = Product.builder()
                 .productID(2)
                 .categoryID(1)
