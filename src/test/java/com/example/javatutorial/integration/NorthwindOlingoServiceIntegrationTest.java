@@ -22,7 +22,6 @@ public class NorthwindOlingoServiceIntegrationTest {
 
     private MockedStatic<DestinationAccessor> destAccessorMock;
 
-
     @Test
     void fetchEntitySet_shouldReturnSomeProducts() {
         ReflectionTestUtils.setField(
@@ -30,9 +29,10 @@ public class NorthwindOlingoServiceIntegrationTest {
                 "serviceRoot",
                 "https://services.odata.org/V4/Northwind/Northwind.svc"
         );
-        var params = new LinkedMultiValueMap<String,Object>();
+        var params = new LinkedMultiValueMap<String, Object>();
         params.add("top","5");
         ClientEntitySet set = service.fetchEntitySet("Products", params);
         assertThat(set.getEntities()).hasSizeGreaterThan(0);
+        assertThat(set.getEntities().get(0).getProperty("ProductName").getValue().toString()).isEqualTo("Chai");
     }
 }
